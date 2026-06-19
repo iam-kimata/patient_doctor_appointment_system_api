@@ -78,4 +78,14 @@ class AdminController extends Controller
             'user' => $user
         ], 201);
     }
+
+    // for logout
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+
+        $user->tokens()->delete();
+
+        return response()->json(['message' => 'Logout successfully'], 200);
+    }
 }
