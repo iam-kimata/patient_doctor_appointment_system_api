@@ -24,5 +24,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // for create users
     Route::post('register', [AdminController::class, 'createUser']);
 
+    // for logout
+    Route::post('logout', [AuthController::class, 'logout']);
+
 });
 
