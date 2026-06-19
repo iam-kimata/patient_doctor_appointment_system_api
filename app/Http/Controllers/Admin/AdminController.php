@@ -4,25 +4,53 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    // for create users
-    public function createUser(RegisterRequest $request)
+    // for displaying dashboard information
+    public function dashboardInfomation()
     {
-        $userData = $request->validated();
+        $totalPatients = User::where('role', 'Patient')->count();
 
-        $user = User::create($userData);
+        $totalDoctors = User::where('role', 'Doctor')->count();
 
-        $token = $user->createToken('user_token')->plainTextToken;
+        $totalAppointments = Appointment::count();
+
+        $data = Appointment::orderBy('created_at', 'desc')
+           ->get();
 
         return response()->json([
-            'message' => 'Account created successfully',
-            'token' => $token,
-            'user' => $user,
-        ], 201);
+            'totalPatients' => $totalPatients,
+            'totalDoctors' => $totalDoctors,
+            'totalAppointments' => $totalAppointments,
+            'data' => $data
+        ]);
+    }
+
+    // for cancel appointment
+    public function cancelAppointment(Appointment $appointment)
+    {
+        $appointment->update([
+            'status' => 'cancelled'
+        ]);
+
+        return response()->json([
+            'message' => 'Appointment cancelled successfully',
+            'data' => $appointment
+        ]);
+    }
+
+    // for delete appointment
+    public function destroyAppointment(Appointment $appointment)
+    {
+        $appointment->delete();
+
+        return response()->json([
+            'message' => 'Appointment deleted successfully'
+        ]);
     }
 
     // for displaying users
@@ -35,4 +63,19 @@ class AdminController extends Controller
         return response()->json($users);    
     }
 
+    // for create users
+    public function createUser(RegisterRequest $request)
+    {
+        $userData = $request->validated();
+
+        $user = User::create($userData);
+
+        $token = $user->createToken('user_token')->plainTextToken;
+
+        return response()->json([
+            'message' => 'Account created successfully',
+            'token' => $token,
+            'user' => $user
+        ], 201);
+    }
 }
