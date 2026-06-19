@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    // for register users
+    // for create users
     public function createUser(RegisterRequest $request)
     {
         $userData = $request->validated();
@@ -26,5 +26,13 @@ class AdminController extends Controller
     }
 
     // for displaying users
+    public function users()
+    {
+        $users = User::whereIn('role', ['Patent', 'Doctor'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($users);    
+    }
 
 }
