@@ -53,6 +53,36 @@ class AdminController extends Controller
         ]);
     }
 
+    // for fetch dropdown data
+    public function create()
+    {
+        $patients = User::where('role', 'Patient')->get();
+        $doctors = User::where('role', 'Doctor')->get();
+
+        return response()->json([
+            'patients' => $patients,
+            'doctors' => $doctors
+        ]);
+    }
+
+    // for create appointment
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'patient' => 'required',
+            'doctor' => 'required',
+            'appointment_date' => 'required',
+            'appointment_time' => 'required'
+        ]);
+
+        $appointment = Appointment::create($validated);
+
+        return response()->json([
+            'message' => 'Appointment created successfully',
+            'appointment' => $appointment
+        ]);
+    }
+
     // for displaying users
     public function users()
     {
