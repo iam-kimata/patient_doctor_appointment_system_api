@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Doctor\DoctorController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +23,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('create', [AdminController::class, 'create']);
 
     // for create appointment
-    Route::post('store', [AuthController::class, 'store']);
+    Route::post('store', [AdminController::class, 'store']);
 
     // for displaying users
-    Route::get('users', [AuthController::class, 'users']);
+    Route::get('users', [AdminController::class, 'users']);
 
     // for create users
     Route::post('register', [AdminController::class, 'createUser']);

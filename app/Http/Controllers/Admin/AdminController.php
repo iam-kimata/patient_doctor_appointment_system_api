@@ -19,8 +19,7 @@ class AdminController extends Controller
 
         $totalAppointments = Appointment::count();
 
-        $data = Appointment::orderBy('created_at', 'desc')
-           ->get();
+        $data = Appointment::orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'totalPatients' => $totalPatients,
