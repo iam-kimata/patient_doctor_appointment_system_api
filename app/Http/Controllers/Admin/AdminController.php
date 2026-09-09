@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     // for displaying dashboard information
-    public function dashboardInfomation()
+    public function dashboardInformation()
     {
         $totalPatients = User::where('role', 'Patient')->count();
 
