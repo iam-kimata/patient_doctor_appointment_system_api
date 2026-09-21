@@ -84,7 +84,7 @@ class AdminController extends Controller
     // for displaying users
     public function users()
     {
-        $users = User::whereIn('role', ['Patent', 'Doctor'])
+        $users = User::whereIn('role', ['Patient', 'Doctor'])
             ->orderBy('created_at', 'desc')
             ->get();
 

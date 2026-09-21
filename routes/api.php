@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Doctor\DoctorController;
 use Illuminate\Support\Facades\Route;
 
+// for register users
+Route::post('register', [AuthController::class, 'register']);
+
 // for users to login
 Route::post('login', [AuthController::class, 'login']);
 
@@ -27,9 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // for displaying users
     Route::get('users', [AdminController::class, 'users']);
-
-    // for create users
-    Route::post('register', [AdminController::class, 'createUser']);
 
     // for displaying dashboard information
     Route::get('dashboard', [DoctorController::class, 'dashboardInformation']);
