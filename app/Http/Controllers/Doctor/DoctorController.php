@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class DoctorController extends Controller
 {
     // for displaying dashboard information
-    public function dashboardInformation()
+    public function dashboardInfo()
     {
         return response()->json([
-            'appointments' => Appointment::latest()->get()
+            'appointments' => Appointment::with(['patient', 'doctor'])
+            ->latest()
+            ->get()
         ]);
     }
 }

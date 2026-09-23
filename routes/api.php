@@ -31,8 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // for displaying users
     Route::get('users', [AdminController::class, 'users']);
 
-    // // for displaying dashboard information
-    // Route::get('dashboard', [DoctorController::class, 'dashboardInformation']);
+    // for displaying dashboard information
+    Route::get('dashboardInfo', [DoctorController::class, 'dashboardInfo']);
 
     // for logout
     Route::post('logout', [AdminController::class, 'logout']);
