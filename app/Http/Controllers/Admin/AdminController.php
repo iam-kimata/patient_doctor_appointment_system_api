@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     // for displaying dashboard information
-    public function dashboardInformation()
+    public function dashboard()
     {
         $totalPatients = User::where('role', 'Patient')->count();
 
@@ -18,7 +18,9 @@ class AdminController extends Controller
 
         $totalAppointments = Appointment::count();
 
-        $data = Appointment::orderBy('created_at', 'desc')->get();
+        $data = Appointment::with(['patient', 'doctor'])
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json([
             'totalPatients' => $totalPatients,

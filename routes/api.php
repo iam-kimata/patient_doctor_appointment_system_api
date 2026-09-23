@@ -14,7 +14,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
 
     // for displaying dashboard information
-    Route::get('dashboard', [AdminController::class, 'dashboardInformation']);
+    Route::get('dashboard', [AdminController::class, 'dashboard']);
 
     // for cancel appointment
     Route::put('appointments/{appointment}', [AdminController::class, 'cancelAppointment']);
@@ -31,8 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // for displaying users
     Route::get('users', [AdminController::class, 'users']);
 
-    // for displaying dashboard information
-    Route::get('dashboard', [DoctorController::class, 'dashboardInformation']);
+    // // for displaying dashboard information
+    // Route::get('dashboard', [DoctorController::class, 'dashboardInformation']);
 
     // for logout
     Route::post('logout', [AdminController::class, 'logout']);
